@@ -1,11 +1,12 @@
 import './App.css'
+import Nav from './components/Nav'
 
 function App() {
 
   return (
    
      <div>
-      <h1>Warhammer Tracker The beginning</h1>
+      <Nav></Nav>
      </div>
     
   )
