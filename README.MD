@@ -1,7 +1,7 @@
 # Warhammer Tracker
 A web app to track your Warhammer painting and collection progress.
 
-# Features to come:
+## Features to come:
 - Dashboard
 - Login
 - Picture Upload
@@ -19,4 +19,5 @@ A web app to track your Warhammer painting and collection progress.
 ```bash
 npm install
 npm run dev
+
 
