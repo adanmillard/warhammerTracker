@@ -1,12 +1,12 @@
-import './App.css'
-import Nav from './components/Nav'
+import './index.css'
+import LandingPage from './pages/LandingPage'
 
 function App() {
 
   return (
    
      <div>
-      <Nav></Nav>
+      <LandingPage/>
      </div>
     
   )
