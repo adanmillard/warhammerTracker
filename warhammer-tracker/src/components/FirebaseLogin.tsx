@@ -1,8 +1,9 @@
 import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, type User } from "firebase/auth";
 import { auth } from "../firebase"; // Adjust the path if your firebase config is elsewhere
 import { useEffect, useState } from "react";
+import ProfileMenu from "./ProfileMenu";
 
-export default function Nav(){
+export default function FirebaseLogin(){
     
     const [user, setUser] = useState<User | null>(null);
 
@@ -33,11 +34,10 @@ return(
     <div className=" w-full">
         <ul className="flex justify-end gap-6 p-4 bg-gray-800 text-white">
             {!user ? (
-                <li className="cursor-pointer" onClick={() => signInWithGoogle()}>Log in</li>
+                <li className="cursor-pointer" onClick={signInWithGoogle}>Log in</li>
             ):(
                 <>
-                <li>{user?.displayName}</li>
-                <li className="cursor-pointer" onClick={handleSignOut}>Sign Out</li>
+                <ProfileMenu user={user} signOut={handleSignOut}></ProfileMenu>
                 </>
             )}
         </ul>

@@ -1,11 +1,11 @@
-import Navbar from '../components/Navbar'
+import FirebaseLogin from '../components/FirebaseLogin'
 import '../index.css'
 
 export default function LandingPage(){
     
 return(
     <div>
-        <Navbar></Navbar>
+        <FirebaseLogin></FirebaseLogin>
         <div className='relative flex justify-center items-center'>
         <img className='w-full h-auto object-cover' src="https://i.redd.it/hows-your-literal-pile-of-shame-looking-v0-4h0bji7dbzjf1.jpg?width=5712&format=pjpg&auto=webp&s=fa33a4e889d928c3e54e134dff078d37b4362596" alt="Warhammer pile of shame" />
         <div className='absolute inset-0 bg-black/40'></div>
