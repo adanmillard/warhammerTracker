@@ -1,10 +1,45 @@
+import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, type User } from "firebase/auth";
+import { auth } from "../firebase"; // Adjust the path if your firebase config is elsewhere
+import { useEffect, useState } from "react";
+
 export default function Nav(){
+    
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    const signInWithGoogle: any = async () => {
+        const provider = new GoogleAuthProvider();
+        try{
+            const result = await signInWithPopup(auth, provider);
+            console.log(result);
+        } catch (error:any) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+        }
+    }
+
+    const handleSignOut = async () => {
+        await signOut(auth);
+    }
     
 return(
     <div className=" w-full">
         <ul className="flex justify-end gap-6 p-4 bg-gray-800 text-white">
-            <li className="cursor-pointer">Log in</li> {/* Make these into buttons later */}
-            <li className="cursor-pointer">Sign up</li>
+            {!user ? (
+                <li className="cursor-pointer" onClick={() => signInWithGoogle()}>Log in</li>
+            ):(
+                <>
+                <li>{user?.displayName}</li>
+                <li className="cursor-pointer" onClick={handleSignOut}>Sign Out</li>
+                </>
+            )}
         </ul>
     </div>
 )
