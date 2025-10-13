@@ -1,4 +1,5 @@
 import {type User} from "firebase/auth";
+import Nav from "./Nav";
 
   interface ProfileMenuProps {
         user: User | null;
@@ -11,13 +12,14 @@ import {type User} from "firebase/auth";
     
 export default function ProfileMenu({user, signOut}: ProfileMenuProps & SignOutProps){
 
-  
 return(
     <div>
-        {user?.displayName}
-        <div>Profile</div>
-        <div>Collection</div>
-        <div onClick={signOut}>Sign out</div>
+        <ul>
+            {user?.displayName}
+            <Nav/>
+            <li onClick={signOut}>Sign out</li>
+        </ul>
+        
     </div>
 )
 }

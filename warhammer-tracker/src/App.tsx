@@ -1,12 +1,33 @@
 import './index.css'
-import LandingPage from './pages/LandingPage'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './index.css'
+
+import LandingPage from './pages/LandingPage.tsx'
+import Profile from './pages/Profile.tsx'
+import Collection from './pages/Collection.tsx'
 
 function App() {
+
+  const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LandingPage/>,
+    index: true
+  },
+  {
+    path: "/profile",
+    element: <Profile/>
+  },
+  {
+    path: "/collections",
+    element: <Collection/>
+  }
+])
 
   return (
    
      <div>
-      <LandingPage/>
+      <RouterProvider router={router} />
      </div>
     
   )
