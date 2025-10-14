@@ -15,7 +15,9 @@ export default function ProfileMenu({user, signOut}: ProfileMenuProps & SignOutP
 return(
     <div>
         <ul>
-            {user?.displayName}
+            <li>
+                <a href="/">{user?.displayName}</a>
+            </li>
             <Nav/>
             <li onClick={signOut}>Sign out</li>
         </ul>
