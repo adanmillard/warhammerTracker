@@ -1,7 +1,54 @@
 export default function Profile(){
     return(
-        <div>
-            Profile Page
+        <div className="max-w-3xl mx-auto p-6 flex flex-col gap-8">
+        <div className="flex justify-around bg-gray-100 p-4 rounded-lg shadow-md">
+            <div>
+            <h2>Profile Name</h2>
+            <p>This is about me</p>
+            </div>
+            <div>
+            <img className="w-50 h-50 rounded-full object-cover" alt="profile image" src="https://assets.warhammer-community.com/miniofmonth-jul28-mini-aulozslx3e.jpg"></img>
+            </div>
+        </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md flex justify-around">
+            <div>
+                <h3>Profile Stats</h3>
+                <p>Join Date</p>
+                <p>Member for:</p>
+                <p>Total Projects created</p>
+                <p>Total Models painted</p>
+                <p>In progress</p>
+            </div>
+            <div>
+                <h3>Achievements</h3>
+                <p>Badges</p>
+                <p>Trophies</p>
+                <p>Milestones</p>
+            </div>
+        </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md flex flex-col gap-4 items-center">
+            <h3>Recent Activity</h3>
+            <p>last mini painted</p>
+            <img className="mx-auto max-w-md" src="https://www.wargamer.com/wp-content/sites/wargamer/2025/05/warhammer-40k-uncanny-deathwing.jpg"></img>
+        </div>
         </div>
     )
 }
+
+{/* 
+    Backened Todo:
+    Profile Name - save to database or browser storage
+    About Me - save to database or browser storage
+    Profile Image - upload and save to database
+    Profile Stats - 
+        Join Date - timestamp on account creation
+        Member for - calculate from join date
+        Total Projects created - count from database
+        Total Models painted - count from database
+        In progress - count from database
+    Achievements - 
+        Badges - make based on milestones
+        Milestones - paint X models, complete Y projects
+    Recent Activity - 
+        last mini painted with image - get recent activity from database
+    */}
