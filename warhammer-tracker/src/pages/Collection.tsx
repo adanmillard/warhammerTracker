@@ -29,9 +29,9 @@ export default function Collection() {
               className="w-full h-48 object-cover rounded-xl mb-4"
             />
             <p className="font-bold">Chaos Lord</p>
-            <p className="text-gray-400">Faction: Chaos Space Marines</p>
+            <p>Faction: Chaos Space Marines</p>
             <p>Status: <span className="text-green-400">Painted</span></p>
-            <p className="text-gray-400 text-sm mt-2">Notes: Great detailing on the armor.</p>
+            <p className=" text-sm mt-2">Notes: Great detailing on the armor.</p>
           </div>
         </div>
       </div>
@@ -88,6 +88,7 @@ export default function Collection() {
  {/*
                 Loop through user's collection from database and display each model with details
                 Make into carasouel or grid view for better UX
+                Move add model form into a modal popup for cleaner interface or separate page
                 */}
 
                  {/* Backend Todo:
