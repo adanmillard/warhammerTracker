@@ -8,8 +8,8 @@ import Nav from "./Nav";
     interface SignOutProps {
         signOut: () => Promise<void>;
     }
-    
-    
+
+
 export default function ProfileMenu({user, signOut}: ProfileMenuProps & SignOutProps){
 
 return(
@@ -22,7 +22,7 @@ return(
             <li onClick={signOut}>Sign out</li>
             {/* Fix sign out if on different page to reroute back to homepage */}
         </ul>
-        
+
     </div>
 )
 }
