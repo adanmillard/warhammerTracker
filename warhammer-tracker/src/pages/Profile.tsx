@@ -29,7 +29,7 @@ export default function Profile(){
         <div className="bg-gray-100 p-4 rounded-lg shadow-md flex flex-col gap-4 items-center">
             <h3>Recent Activity</h3>
             <p>last mini painted</p>
-            <img className="mx-auto max-w-md" src="https://www.wargamer.com/wp-content/sites/wargamer/2025/05/warhammer-40k-uncanny-deathwing.jpg"></img>
+            <img className="mx-auto max-w-md" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwjepOjVMQGmYzp02zj0VgWIyudcpikwg7Zg&s"></img>
         </div>
         </div>
     )
