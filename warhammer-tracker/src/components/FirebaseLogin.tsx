@@ -11,17 +11,45 @@ export default function FirebaseLogin() {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
+            console.log(currentUser)
+
+            if (currentUser) {
+                const token = await currentUser.getIdToken();
+                console.log(token)
+
+                try {
+                    const res = await fetch(`http://localhost:5000/api/users/sync`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        }
+                    });
+                    if (!res.ok) {
+                        console.error('Failed to sync user with backend');
+                    }
+
+                    const data = await res.json();
+                    console.log('User synced with backend:', data.user);
+
+                    navigate('/profile');
+                } catch (error) {
+                    console.error('Error syncing user with backend:', error);
+                }
+            }
+
+
+
         });
         return () => unsubscribe();
-    }, []);
+    }, [navigate]);
 
     const signInWithGoogle: any = async () => {
         const provider = new GoogleAuthProvider();
         try{
-            const result = await signInWithPopup(auth, provider);
-            return result;
+            await signInWithPopup(auth, provider);
         } catch (error:any) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -29,14 +57,8 @@ export default function FirebaseLogin() {
         }
     }
 
-
-
-    const handleSignOut = async (user: User) => {
+    const handleSignOut = async () => {
         try {
-            if (!user) {
-                navigate('/');
-                return
-            }
             await signOut(auth);
             navigate('/');
         } catch (error) {
@@ -51,7 +73,7 @@ return(
                 <li className="cursor-pointer" onClick={signInWithGoogle}>Log in</li>
             ):(
                 <>
-                <ProfileMenu user={user} signOut={() => handleSignOut(user)}></ProfileMenu>
+                <ProfileMenu user={user} signOut={handleSignOut}></ProfileMenu>
                 </>
             )}
         </ul>
