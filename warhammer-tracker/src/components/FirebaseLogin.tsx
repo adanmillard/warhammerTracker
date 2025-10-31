@@ -1,5 +1,5 @@
 import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, type User } from "firebase/auth";
-import { auth } from "../firebase"; // Adjust the path if your firebase config is elsewhere
+import { auth } from "../firebase";
 import { useEffect, useState } from "react";
 import ProfileMenu from "./ProfileMenu";
 import { useNavigate } from "react-router-dom";

@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage.tsx'
 import Profile from './pages/Profile.tsx'
 import Collection from './pages/Collection.tsx'
 import Layout from './components/Layout.tsx'
+import RouterProtector from './components/RouteProtector.tsx'
 
 function App() {
 
@@ -15,27 +16,35 @@ function App() {
       element: <Layout/>,
       children: [
         {
-          element: <LandingPage/>,
+          element: <LandingPage />,
           index: true
         },
         {
           path: "/profile",
-          element: <Profile/>
+          element: (
+            <RouterProtector>
+              < Profile />
+            </RouterProtector >
+          ),
         },
         {
           path: "/collections",
-          element: <Collection/>
+          element: (
+            <RouterProtector>
+              <Collection />
+            </RouterProtector >
+          )
         }
       ]
     },
 ])
 
   return (
-   
-     <div>
+
+    <div>
       <RouterProvider router={router} />
      </div>
-    
+
   )
 }
 

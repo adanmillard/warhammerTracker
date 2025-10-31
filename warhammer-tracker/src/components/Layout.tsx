@@ -4,7 +4,7 @@ import FirebaseLogin from "./FirebaseLogin";
 export default function Layout(){
     return(
         <div>
-            <FirebaseLogin/>
+            <FirebaseLogin />
             <Outlet/>
         </div>
     )
