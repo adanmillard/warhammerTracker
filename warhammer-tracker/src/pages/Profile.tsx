@@ -1,10 +1,37 @@
-export default function Profile(){
+import { useState } from "react";
+import { auth } from "../firebase";
+
+export default function Profile() {
+    const [user, setUser] = useState('');
+    const [aboutMe, setAboutMe] = useState('')
+
+    const saveUserDetails = async () => {
+        const token = await auth.currentUser?.getIdToken();
+
+        const userToSend = {
+            username: user,
+            aboutMe : aboutMe
+        }
+
+        await fetch('http://localhost:5000/api/users/update', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(userToSend)
+        })
+    }
+
     return(
         <div className="max-w-3xl mx-auto p-6 flex flex-col gap-8">
         <div className="flex justify-around bg-gray-100 p-4 rounded-lg shadow-md">
             <div>
-            <h2>Profile Name</h2>
-            <p>This is about me</p>
+                    <h2>Profile Name</h2>
+                    <input value={user} onChange={e => setUser(e.target.value)}/>
+                        <p>This is about me</p>
+                        <input value={aboutMe} onChange={e => setAboutMe(e.target.value)} />
+                    <button onClick={() => saveUserDetails()}>Save</button>
             </div>
             <div>
             <img className="w-50 h-50 rounded-full object-cover" alt="profile image" src="https://assets.warhammer-community.com/miniofmonth-jul28-mini-aulozslx3e.jpg"></img>
@@ -35,20 +62,21 @@ export default function Profile(){
     )
 }
 
-{/* 
+{/*
     Backened Todo:
     Profile Name - save to database or browser storage
     About Me - save to database or browser storage
     Profile Image - upload and save to database
-    Profile Stats - 
+    Profile Stats -
         Join Date - timestamp on account creation
         Member for - calculate from join date
         Total Projects created - count from database
         Total Models painted - count from database
         In progress - count from database
-    Achievements - 
+    Achievements -
         Badges - make based on milestones
         Milestones - paint X models, complete Y projects
-    Recent Activity - 
+    Recent Activity -
         last mini painted with image - get recent activity from database
     */}
+

@@ -21,9 +21,6 @@ return(
             <Nav/>
             <li onClick={signOut}>Sign out</li>
         </ul>
-        { /*TODO:
-            make sure user is not null before navigating
-        */}
     </div>
 )
 }
