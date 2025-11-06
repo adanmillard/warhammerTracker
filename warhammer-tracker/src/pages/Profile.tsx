@@ -1,9 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { auth } from "../firebase";
 
 export default function Profile() {
     const [user, setUser] = useState('');
+    const [userData, setUserData] = useState<any>();
     const [aboutMe, setAboutMe] = useState('')
+
+    useEffect(() => {
+        const getUserDetails = async () => {
+            try {
+        const token = await auth.currentUser?.getIdToken();
+
+                const res = await fetch('http://localhost:5000/api/user/information', {
+                    method: "GET",
+                    headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+                });
+                if (!res.ok) throw new Error('Failed to get user data');
+                const result = await res.json();
+                 setUserData(result.data);
+                console.log('this is the res from the useeffect', result.data);
+                return
+            }catch (error) {
+                console.error(error)
+        }
+
+        }
+
+        getUserDetails();
+    }, [])
 
     const saveUserDetails = async () => {
         const token = await auth.currentUser?.getIdToken();
@@ -28,8 +55,10 @@ export default function Profile() {
         <div className="flex justify-around bg-gray-100 p-4 rounded-lg shadow-md">
             <div>
                     <h2>Profile Name</h2>
+                    <p>{userData?.username}</p>
                     <input value={user} onChange={e => setUser(e.target.value)}/>
-                        <p>This is about me</p>
+                    <p>This is about me</p>
+                    <p>{ userData?.about_me}</p>
                         <input value={aboutMe} onChange={e => setAboutMe(e.target.value)} />
                     <button onClick={() => saveUserDetails()}>Save</button>
             </div>
@@ -64,8 +93,6 @@ export default function Profile() {
 
 {/*
     Backened Todo:
-    Profile Name - save to database or browser storage
-    About Me - save to database or browser storage
     Profile Image - upload and save to database
     Profile Stats -
         Join Date - timestamp on account creation
