@@ -4,40 +4,42 @@ import { auth } from "../firebase";
 export default function Profile() {
     const [user, setUser] = useState('');
     const [userData, setUserData] = useState<any>();
-    const [aboutMe, setAboutMe] = useState('')
+    const [aboutMe, setAboutMe] = useState('');
 
     useEffect(() => {
         const getUserDetails = async () => {
             try {
-        const token = await auth.currentUser?.getIdToken();
+                const token = await auth.currentUser?.getIdToken();
 
                 const res = await fetch('http://localhost:5000/api/user/information', {
                     method: "GET",
                     headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`,
+                    },
                 });
                 if (!res.ok) throw new Error('Failed to get user data');
                 const result = await res.json();
-                 setUserData(result.data);
+                setUserData(result.data);
+                setUser(result.data.username);
+                setAboutMe(result.data.about_me)
                 console.log('this is the res from the useeffect', result.data);
                 return
-            }catch (error) {
+            } catch (error) {
                 console.error(error)
-        }
+            }
 
         }
 
         getUserDetails();
-    }, [])
+    }, []);
 
     const saveUserDetails = async () => {
         const token = await auth.currentUser?.getIdToken();
 
         const userToSend = {
             username: user,
-            aboutMe : aboutMe
+            aboutMe: aboutMe
         }
 
         await fetch('http://localhost:5000/api/users/update', {
@@ -47,18 +49,16 @@ export default function Profile() {
                 "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify(userToSend)
-        })
-    }
+        });
+    };
 
     return(
         <div className="max-w-3xl mx-auto p-6 flex flex-col gap-8">
         <div className="flex justify-around bg-gray-100 p-4 rounded-lg shadow-md">
             <div>
                     <h2>Profile Name</h2>
-                    <p>{userData?.username}</p>
-                    <input value={user} onChange={e => setUser(e.target.value)}/>
+                    <input onChange={e => setUser(e.target.value)} value={user}/>
                     <p>This is about me</p>
-                    <p>{ userData?.about_me}</p>
                         <input value={aboutMe} onChange={e => setAboutMe(e.target.value)} />
                     <button onClick={() => saveUserDetails()}>Save</button>
             </div>
